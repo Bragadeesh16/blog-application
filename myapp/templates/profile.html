@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+{% block stylesheet%}
+<link rel="stylesheet" href="{% static 'profile.css' %}">
+ {% endblock %}
+
+<h5 style="padding: 3px;">Profile:</h5>
+<h6>Username : {{ users.username }}</h6>
+<h6>email : {{ users.email}}</h6>
+
+<h5>posts:</h5>
+
+
+<div class="posts-container"> 
+    {% for post in posts %}
+    <div class="post">
+        <a href="{% url 'post' post.slug %}">
+            <h5>Title: {{ post.Title }}</h5>
+            <p>Content: {{ post.Content|slice:"200" }}</p>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

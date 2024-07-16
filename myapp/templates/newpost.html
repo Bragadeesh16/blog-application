@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+{% block stylesheet%}
+<link rel="stylesheet" href="{% static 'newpost.css' %}">
+ {% endblock %}
+
+<div class="container">
+    <h5> Add Post : </h5>
+    <form action="{% url 'new-post'%}" method="post" class="profile-form" >
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" class="btn btn-primary">Post</button>
+    </form>
+</div>
+
+{% endblock %}

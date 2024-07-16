@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+{% block stylesheet%}
+<link rel="stylesheet" href="{% static 'search.css' %}">
+ {% endblock %}
+
+
+<h5 style="padding: 5px;">Posts:</h5>
+
+<div class="posts-container"> 
+    {% for post in posts %}
+    <div class="post">
+        <a href="{% url 'post' post.slug %}">
+            <h5>{{ post.Title }}</h5>
+            <p>Content: {{ post.Content|slice:"200" }}</p>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'post.css' %}">
+{% endblock %}
+
+<h5 style="padding: 8px;"> Detailed Posts :</h5>
+
+<div class="posts-container"> 
+    <div class="post">
+        <h5>Title: {{ posts.Title }}</h5>
+        <h5 style="font-size: larger;"><a href="{% url 'profile' posts.Author.id %}"> author : {{ posts.Author.username }}</a></h5>
+        <p>Content: {{ posts.Content }}</p>
+    </div>
+
+    <h5>comments:</h5>
+
+    <button id="add-comment-button" class="btn btn-primary">add comments</button>
+
+    <div id="comment-form-container" style="display: none;">
+        <form action="{% url 'post' posts.slug %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit" class="btn btn-primary">send</button>
+        </form>
+    </div>
+
+    <div class="comments">
+        {% for comment in comment %}
+            <div class="comment">
+                <strong>{{ comment.Author.username }}:</strong> {{ comment.Content }}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}  
+
+{% block javascript %}
+<script>
+    document.getElementById('add-comment-button').addEventListener('click', function() {
+        var commentFormContainer = document.getElementById('comment-form-container');
+        if (commentFormContainer.style.display === 'none') {
+            commentFormContainer.style.display = 'block';
+        } else {
+            commentFormContainer.style.display = 'none';
+        }
+    });
+</script>
+{% endblock %}

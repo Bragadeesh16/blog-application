@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+{% block stylesheet%}
+<link rel="stylesheet" href="{% static 'home.css' %}">
+ {% endblock %}
+
+ <div>
+    <form action="{% url 'search' %}" method="post" class="search">
+        <input type="text" name ="search-element" class="search-input">
+        {% csrf_token %}
+        <button class="btn btn-primary">Search</button>
+    </form>
+</div>
+
+
+
+
+<div class="posts-container"> 
+    {% for post in posts %}
+    <div class="post">
+        <a href="{% url 'post' post.slug %}">
+            <h5>{{ post.Title }}</h5>
+            <p>Content: {{ post.Content|slice:"200" }}</p>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
+
+<a href="{% url 'new-post' %}" class="btn btn-primary new-post">new post</a>
+
+
+<div style="position: fixed; right: 44%; bottom: 4%;">
+
+    {% if posts.has_previous %}
+
+    <a href="?page={{venues.previous_page_number }}">previous </a>
+
+    {% endif %}
+
+    Page {{ posts.number }} of {{ posts.paginator.num_pages }} 
+
+    {% if posts.has_next %}
+
+     <a href="?page={{ posts.next_page_number }}">  next</a>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
