@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block stylesheet%}
+<link rel="stylesheet" href="{% static 'personalchat.css' %}">
+ {% endblock %}
+
+{% block content %}
+    <h4 class="sender-username">{{ sender.username }}</h4>
+    <ul class="message-list">
+        {% for message in messages %}
+        
+            {% if message.sender.id == request.user.id %}
+                <li class="message message-align-right">
+                    {{ message.text }}
+                </li>
+            {% else %}
+                <li class="message message-align-left">
+                    {{ message.text }}
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+
+
+
+    <form action="" id="message-form">
+        <input type="text" name="message" id="message">
+        <button type="submit">send</button>
+    </form>
+
+{% endblock %}
+
+{% block javascript %}
+
+<script>
+    const fullPath = window.location.pathname;
+    const pathSegments = fullPath.split('/');
+    const lastId = pathSegments[pathSegments.length - 1];
+    console.log('ws://'+window.location.host+'/ws/chat/'+ lastId)
+    const ws = new WebSocket('ws://'+window.location.host+'/ws/chat/'+ lastId);
+    
+    ws.onopen = function(e){
+        console.log('connection is open');
+    }
+    ws.onmessage = function(e){
+        var new_ul = document.querySelector('.message-list');
+        var data = JSON.parse(event.data)
+        var new_li = document.createElement('li')
+        new_li.classList.add('message')
+        if(data.username == '{{request.user.username|escapejs}}'){
+            new_li.classList.add('message-align-right');
+            new_li.innerText = data.text;
+        }else{
+            new_li.classList.add('message-align-left');
+            new_li.innerText = data.text;
+        }
+        
+        new_li.textContent = data.text;
+        new_ul.appendChild(new_li)
+       
+    }
+    
+    ws.onerror = function(e){
+        console.log('you got an error')
+    }
+    ws.onclose = function(e){
+        console.log('connection is closed ')
+    }
+    const messageform = document.getElementById('message-form')
+        messageform.addEventListener('submit',sendmessage)
+        function sendmessage(e){
+            if(e.preventDefault) e.preventDefault();
+            ws.send(document.getElementById('message').value);
+            messageform.reset()
+            return false;
+        }
+    
+</script>
+
+{% endblock %}

@@ -21,14 +21,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 
-# SECRET_KEY = 'django-insecure-0^+4#kl!jsxc_9*7)n7l)!v8kpxcl+x58h533f3d^^l260nxhi'
-# DEBUG = True
-# ALLOWED_HOSTS = []
+SECRET_KEY = 'django-insecure-0^+4#kl!jsxc_9*7)n7l)!v8kpxcl+x58h533f3d^^l260nxhi'
+DEBUG = True
+ALLOWED_HOSTS = []
 
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
-DEBUG = os.environ.get('DEBUG','False').lower() == 'true'
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(" ")
+# SECRET_KEY = os.environ.get('SECRET_KEY')
+# DEBUG = os.environ.get('DEBUG','False').lower() == 'true'
+# ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(" ")
 
 # Application definition
 
@@ -84,8 +84,8 @@ DATABASES = {
     }
 }
 
-database_url = os.environ.get("DATABASE_URL")
-DATABASES['default'] = dj_database_url.parse(database_url)
+# database_url = os.environ.get("DATABASE_URL")
+# DATABASES['default'] = dj_database_url.parse(database_url)
 
 
 # Password validation

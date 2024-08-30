@@ -20,7 +20,7 @@ def home(request):
     }
     return render(request,'home.html',context)
 
-def search(request):
+def PostSearch(request):
     if request.method == 'POST':
         blog_name = request.POST['search-element']
         print(blog_name)
@@ -31,7 +31,7 @@ def search(request):
     context = {
         'posts':posts,
     }
-    return render(request,'searchelement.html',context) 
+    return render(request,'searchpost.html',context)
 
 
 def register(request):
