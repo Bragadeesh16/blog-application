@@ -8,7 +8,7 @@
     <h4 class="sender-username">{{ sender.username }}</h4>
     <ul class="message-list">
         {% for message in messages %}
-        
+
             {% if message.sender.id == request.user.id %}
                 <li class="message message-align-right">
                     {{ message.text }}
@@ -38,7 +38,7 @@
     const lastId = pathSegments[pathSegments.length - 1];
     console.log('ws://'+window.location.host+'/ws/chat/'+ lastId)
     const ws = new WebSocket('ws://'+window.location.host+'/ws/chat/'+ lastId);
-    
+
     ws.onopen = function(e){
         console.log('connection is open');
     }
@@ -54,12 +54,12 @@
             new_li.classList.add('message-align-left');
             new_li.innerText = data.text;
         }
-        
+
         new_li.textContent = data.text;
         new_ul.appendChild(new_li)
-       
+
     }
-    
+
     ws.onerror = function(e){
         console.log('you got an error')
     }
@@ -74,7 +74,7 @@
             messageform.reset()
             return false;
         }
-    
+
 </script>
 
 {% endblock %}

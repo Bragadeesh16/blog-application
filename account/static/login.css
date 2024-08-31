@@ -56,8 +56,8 @@ p a:hover {
 }
 
 .container {
-    width: 33%;
-    margin: 35px auto;
+    width: 28%;
+    margin: 100px auto;
     padding: 20px;
     border-radius: 10px;
     border: 1px solid black;
@@ -74,5 +74,5 @@ body{
         width: 90%;
         padding: 7px;
     }
-    
+
 }

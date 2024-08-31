@@ -38,6 +38,6 @@
 
 @media (max-width: 768px) {
     .posts-container {
-        grid-template-columns: 1fr; 
+        grid-template-columns: 1fr;
     }
 }

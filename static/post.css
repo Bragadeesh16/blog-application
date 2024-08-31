@@ -46,10 +46,10 @@ form textarea {
     resize: none;
     margin-top: 5px;
     margin-bottom: 5px;
-}   
+}
 @media (max-width: 700px) {
     .posts-container  {
         width: 90%;
     }
-    
+
 }

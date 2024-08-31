@@ -43,7 +43,7 @@
     }
 
     const csrftoken = getCookie('csrftoken');
-    
+
     async function postJSON(data) {
         const url = "{% url 'send-request' %}";
         try {
@@ -76,7 +76,7 @@
             const data = { value:e.target.dataset.value, id: e.target.dataset.id };
             console.log(data)
             postJSON(data);
-            location.reload();  
+            location.reload();
         });
     }
 
