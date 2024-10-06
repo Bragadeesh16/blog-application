@@ -45,12 +45,18 @@ class ProfileModel(models.Model):
     gender = models.CharField(max_length=6, choices=GENDER, default="none")
 
 
-@receiver(post_save, sender=CustomUser)
-def create_profile(sender, instance, created, **kwargs):
-    if created:
-        ProfileModel.objects.create(user=instance)
+    def __str__(self) -> str:
+        return self.user.email
 
 
-@receiver(post_save, sender=CustomUser)
-def save_profile(sender, instance, **kwargs):
-    instance.profile.save()
+# @receiver(post_save, sender=CustomUser)
+# def create_profile(sender, instance, created, **kwargs):
+#     if created:
+#         ProfileModel.objects.get_or_create(user=instance)  
+
+
+# @receiver(post_save, sender=CustomUser)
+# def save_profile(sender, instance, **kwargs):
+#     instance.profile.save()
+
+
