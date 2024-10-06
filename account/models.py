@@ -15,6 +15,7 @@ class CustomUser(AbstractUser):
         self.email = self.email.lower()
         return super().save(*args, **kwargs)
 
+    @property
     def get_profile(self):
         return ProfileModel.objects.get_or_create(user=self)[0]
 
@@ -42,3 +43,14 @@ class ProfileModel(models.Model):
     friends = models.ManyToManyField(CustomUser, related_name="friends", blank=True)
     bio = models.TextField(blank=True, null=True)
     gender = models.CharField(max_length=6, choices=GENDER, default="none")
+
+
+@receiver(post_save, sender=CustomUser)
+def create_profile(sender, instance, created, **kwargs):
+    if created:
+        ProfileModel.objects.create(user=instance)
+
+
+@receiver(post_save, sender=CustomUser)
+def save_profile(sender, instance, **kwargs):
+    instance.profile.save()

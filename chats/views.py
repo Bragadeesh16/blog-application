@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from .models import *
+from .models import FriendRequest 
+from account.models import ProfileModel
 from .forms import *
 from django.utils.translation import gettext_lazy as _
 from django.shortcuts import render
@@ -52,7 +53,8 @@ def UserProfile(request, pk):
     searching_user = CustomUser.objects.get(pk=pk)
     searching_user_details = ProfileModel.objects.get(
         user=searching_user
-    )  # to show the details of the search user
+    )
+    print(searching_user_details)  # to show the details of the search user
     me = ProfileModel.objects.get(
         user=request.user
     )  # to find the friends in my friend list
@@ -66,8 +68,7 @@ def UserProfile(request, pk):
         "friend_exists": friend_exists,
         "receiverdetails": searching_user_details,
     }
-    return render(request, "profile.html", context)
-
+    return render(request, "chat.profile.html", context)
 
 # conforming the friend request in the notification page
 @login_required(login_url="login")

@@ -30,10 +30,13 @@
                     <a class="nav-link" href="{% url 'profile' request.user.id %}" class="btn btn-primary" >Profile</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{% url 'profile' request.user.id %}" class="btn btn-primary" >Connect</a>
+                    <a class="nav-link" href="{% url 'search_user'  %}" class="btn btn-primary" >Connect</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="{% url 'profile' request.user.id %}" class="btn btn-primary" > Chat </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'notifications' %}" class="btn btn-primary" > Notification </a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout'%}" class="btn btn-primary" >Logout</a>

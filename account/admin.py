@@ -1,12 +1,13 @@
 from django.contrib import admin
 from .models import *
+from chats.models import *
+from myapp.models import *
 
 
 class ProfileModelInline(admin.StackedInline):
     model = ProfileModel
     can_delete = False
     verbose_name_plural = "Profile"
-
 
 class UserAdmin(admin.ModelAdmin):
     inlines = (ProfileModelInline,)
@@ -15,4 +16,11 @@ class UserAdmin(admin.ModelAdmin):
     ordering = ("email",)
 
 
-admin.site.register(CustomUser, UserAdmin)
+admin.site.register(CustomUser,UserAdmin)
+admin.site.register(Post)
+admin.site.register(Comment)
+admin.site.register(CreateCommunity)
+admin.site.register(GroupMessage)
+admin.site.register(FriendRequest)
+admin.site.register(Message)
+admin.site.register(Thread)

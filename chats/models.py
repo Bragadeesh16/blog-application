@@ -2,7 +2,6 @@ from django.db import models
 from chats.manager import ThreadManager
 from account.models import CustomUser
 
-
 class CreateCommunity(models.Model):
     Group_name = models.CharField(max_length=100, unique=True)
 
