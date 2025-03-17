@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 
+
 def home(request):
 
     p = Paginator(Post.objects.all().order_by("?"), 6)
@@ -24,12 +25,15 @@ def PostSearch(request):
         print(blog_name)
         posts = Post.objects.filter(Title=blog_name)
         if not posts.exists():
-            messages.error(request, f"There are no posts with the title '{blog_name}'")
+            messages.error(
+                request, f"There are no posts with the title '{blog_name}'"
+            )
 
     context = {
         "posts": posts,
     }
     return render(request, "searchpost.html", context)
+
 
 @login_required(login_url="login")
 def posting(request):

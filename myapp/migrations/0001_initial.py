@@ -63,7 +63,8 @@ class Migration(migrations.Migration):
                 (
                     "Post",
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to="myapp.post"
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="myapp.post",
                     ),
                 ),
             ],

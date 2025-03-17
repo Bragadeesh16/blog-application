@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from .models import FriendRequest 
+from .models import FriendRequest
 from account.models import ProfileModel
 from .forms import *
 from django.utils.translation import gettext_lazy as _
@@ -42,7 +42,9 @@ def send_friend_request(request):
         )
         delete_request.delete()
     elif user_value == "add-friend":
-        FriendRequest.objects.create(sender=request.user, receiver_in=receiver)
+        FriendRequest.objects.create(
+            sender=request.user, receiver_in=receiver
+        )
 
     return JsonResponse({"message": "send the request"}, safe=False)
 
@@ -51,14 +53,15 @@ def send_friend_request(request):
 @login_required(login_url="login")
 def UserProfile(request, pk):
     searching_user = CustomUser.objects.get(pk=pk)
-    searching_user_details = ProfileModel.objects.get(
-        user=searching_user
-    )
+    print(searching_user)
+    searching_user_details = ProfileModel.objects.get(user=searching_user)
     print(searching_user_details)  # to show the details of the search user
     me = ProfileModel.objects.get(
         user=request.user
     )  # to find the friends in my friend list
-    friend_request = FriendRequest.objects.filter(sender=request.user, receiver_in=pk)
+    friend_request = FriendRequest.objects.filter(
+        sender=request.user, receiver_in=pk
+    )
     friend_exists = False
     if friend_request:
         friend_exists = True
@@ -68,7 +71,9 @@ def UserProfile(request, pk):
         "friend_exists": friend_exists,
         "receiverdetails": searching_user_details,
     }
-    return render(request, "chat.profile.html", context)
+    print(context)
+    return render(request, "chats/profile.html", context)
+
 
 # conforming the friend request in the notification page
 @login_required(login_url="login")
@@ -96,14 +101,18 @@ def adding_friend(request):
         )
         delete_friend_request.delete()
 
-        print("the request is confirmed so add the both are friends in the profile")
+        print(
+            "the request is confirmed so add the both are friends in the profile"
+        )
 
     elif user_value == "cancel":
         delete_friend_request = FriendRequest.objects.get(
             sender=user_id, receiver_in=request.user.id
         )
         delete_friend_request.delete()
-        print("the request is confirmed so add the both are friends in the profile")
+        print(
+            "the request is confirmed so add the both are friends in the profile"
+        )
 
     return JsonResponse({"status": "success"}, safe=False)
 
@@ -118,8 +127,12 @@ def notifications(request):
 def PersonalChat(request, pk):
     Sender = request.user
     Receiver = CustomUser.objects.get(id=pk)
-    thread_id = Thread.objects.get_or_create_personal_thread(Sender, Receiver)
+    thread_id = Thread.objects.get_or_create_personal_thread(
+        Sender, Receiver
+    )
     messages = Message.objects.filter(thread=thread_id)
     return render(
-        request, "personalchat.html", {"messages": messages, "sender": Receiver}
+        request,
+        "personalchat.html",
+        {"messages": messages, "sender": Receiver},
     )

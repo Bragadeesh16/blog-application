@@ -2,6 +2,7 @@ from django.db import models
 from chats.manager import ThreadManager
 from account.models import CustomUser
 
+
 class CreateCommunity(models.Model):
     Group_name = models.CharField(max_length=100, unique=True)
 
@@ -29,9 +30,7 @@ class FriendRequest(models.Model):
     seen = models.BooleanField(default=False)
 
     def __str__(self) -> str:
-        return (
-            f"{self.sender.username} sent {self.receiver_in.username} a friend request "
-        )
+        return f"{self.sender.username} sent {self.receiver_in.username} a friend request "
 
 
 class TrackingModel(models.Model):

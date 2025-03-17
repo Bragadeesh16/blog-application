@@ -26,7 +26,10 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("Group_name", models.CharField(max_length=100, unique=True)),
+                (
+                    "Group_name",
+                    models.CharField(max_length=100, unique=True),
+                ),
             ],
         ),
         migrations.CreateModel(
@@ -107,16 +110,25 @@ class Migration(migrations.Migration):
                 ),
                 ("created_at", models.DateTimeField(auto_now_add=True)),
                 ("updated_at", models.DateTimeField(auto_now=True)),
-                ("name", models.CharField(blank=True, max_length=50, null=True)),
+                (
+                    "name",
+                    models.CharField(blank=True, max_length=50, null=True),
+                ),
                 (
                     "thread_type",
                     models.CharField(
-                        choices=[("personal", "Personal"), ("group", "Group")],
+                        choices=[
+                            ("personal", "Personal"),
+                            ("group", "Group"),
+                        ],
                         default="personal",
                         max_length=15,
                     ),
                 ),
-                ("users", models.ManyToManyField(to=settings.AUTH_USER_MODEL)),
+                (
+                    "users",
+                    models.ManyToManyField(to=settings.AUTH_USER_MODEL),
+                ),
             ],
             options={
                 "abstract": False,
@@ -147,7 +159,8 @@ class Migration(migrations.Migration):
                 (
                     "thread",
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to="chats.thread"
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="chats.thread",
                     ),
                 ),
             ],

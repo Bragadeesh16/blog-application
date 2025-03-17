@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+
 urlpatterns = [
     path("search-user", views.SearchUsers, name="search_user"),
     path("user-profile/<int:pk>", views.UserProfile, name="user-profile"),
