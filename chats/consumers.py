@@ -14,7 +14,9 @@ class PersonalChatConsumer(SyncConsumer):
         )
 
         self.room_name = f"personal_thread_{self.thred_obj.id}"
-        async_to_sync(self.channel_layer.group_add)(self.room_name, self.channel_name)
+        async_to_sync(self.channel_layer.group_add)(
+            self.room_name, self.channel_name
+        )
 
         self.send({"type": "websocket.accept"})
 
@@ -23,7 +25,10 @@ class PersonalChatConsumer(SyncConsumer):
     def websocket_receive(self, event):
         print(event)
         msg = json.dumps(
-            {"text": event.get("text"), "username": self.scope["user"].username}
+            {
+                "text": event.get("text"),
+                "username": self.scope["user"].username,
+            }
         )
         async_to_sync(self.channel_layer.group_send)(
             self.room_name, {"type": "websocket.message", "text": msg}

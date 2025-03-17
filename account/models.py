@@ -7,7 +7,9 @@ from django.dispatch import receiver
 
 class CustomUser(AbstractUser):
     email = models.EmailField(max_length=100, unique=True)
-    username = models.CharField(blank=True, null=True, max_length=30, unique=True)
+    username = models.CharField(
+        blank=True, null=True, max_length=30, unique=True
+    )
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
 
@@ -21,7 +23,9 @@ class CustomUser(AbstractUser):
 
 
 @receiver(post_save, sender=CustomUser)
-def save_username_when_user_is_created(sender, instance, created, *args, **kwargs):
+def save_username_when_user_is_created(
+    sender, instance, created, *args, **kwargs
+):
     if created:
         email = instance.email
         sliced_email = email.split("@")[0]
@@ -37,26 +41,30 @@ GENDER = (
 
 class ProfileModel(models.Model):
     user = models.OneToOneField(
-        CustomUser, on_delete=models.CASCADE, unique=True, related_name="profile"
+        CustomUser,
+        on_delete=models.CASCADE,
+        related_name="profile",
     )
-    picture = models.ImageField(upload_to="profile_picture", null=True, blank=True)
-    friends = models.ManyToManyField(CustomUser, related_name="friends", blank=True)
+
+    picture = models.ImageField(
+        upload_to="profile_picture", null=True, blank=True
+    )
+    friends = models.ManyToManyField(
+        CustomUser, related_name="friends", blank=True
+    )
     bio = models.TextField(blank=True, null=True)
     gender = models.CharField(max_length=6, choices=GENDER, default="none")
-
 
     def __str__(self) -> str:
         return self.user.email
 
 
-# @receiver(post_save, sender=CustomUser)
-# def create_profile(sender, instance, created, **kwargs):
-#     if created:
-#         ProfileModel.objects.get_or_create(user=instance)  
+@receiver(post_save, sender=CustomUser)
+def create_profile(sender, instance, created, **kwargs):
+    if created:
+        ProfileModel.objects.get_or_create(user=instance)
 
 
 # @receiver(post_save, sender=CustomUser)
 # def save_profile(sender, instance, **kwargs):
 #     instance.profile.save()
-
-

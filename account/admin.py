@@ -9,6 +9,7 @@ class ProfileModelInline(admin.StackedInline):
     can_delete = False
     verbose_name_plural = "Profile"
 
+
 class UserAdmin(admin.ModelAdmin):
     inlines = (ProfileModelInline,)
     list_display = ("email", "username", "is_staff")
@@ -16,7 +17,7 @@ class UserAdmin(admin.ModelAdmin):
     ordering = ("email",)
 
 
-admin.site.register(CustomUser,UserAdmin)
+admin.site.register(CustomUser, UserAdmin)
 admin.site.register(Post)
 admin.site.register(Comment)
 admin.site.register(CreateCommunity)

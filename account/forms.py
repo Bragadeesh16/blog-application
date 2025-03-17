@@ -7,7 +7,10 @@ class RegisterFrom(UserCreationForm):
 
     email = forms.EmailField(
         widget=forms.EmailInput(
-            attrs={"placeholder": "Enter email-address", "class": "form-control"}
+            attrs={
+                "placeholder": "Enter email-address",
+                "class": "form-control",
+            }
         )
     )
     password1 = forms.CharField(
@@ -29,7 +32,10 @@ class RegisterFrom(UserCreationForm):
 class LoginForm(forms.Form):
     email = forms.EmailField(
         widget=forms.EmailInput(
-            attrs={"placeholder": "Enter email-address", "class": "form-control"}
+            attrs={
+                "placeholder": "Enter email-address",
+                "class": "form-control",
+            }
         )
     )
     password = forms.CharField(
